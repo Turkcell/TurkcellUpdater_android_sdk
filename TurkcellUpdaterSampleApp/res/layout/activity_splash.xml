@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SplashActivity" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Server address"
+        />
+    <EditText
+        android:id="@+id/serverAddressEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="http://update_url.json"
+		android:inputType="textUri"
+        />
+    <CheckBox
+        android:id="@+id/postPropertiesCheckbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post properties"
+        android:checked="true"
+        />
+    <Button
+        android:id="@+id/startUpdateCheckButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start update check"
+        />
+
+</LinearLayout>
