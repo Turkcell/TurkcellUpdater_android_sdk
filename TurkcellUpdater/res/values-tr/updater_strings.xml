@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_required">Güncelleme gerekli</string>
+    <string name="update_found">Güncelleme bulundu</string>
+    <string name="install">Kur</string>
+    <string name="downloading_new_version">Yeni versiyon indiriliyor&#8230;</string>
+    <string name="exit_application">Uygulamadan çık</string>
+    <string name="remind_me_later">Daha sonra hatırlat</string>
+    <string name="error_occured">Hata oluştu</string>
+    <string name="update_couldn_t_be_completed">Güncelleme tamamlanamadı.</string>
+    <string name="continue_">Devam et</string>
+    <string name="view">Görüntüle</string>
+    <string name="close">Kapat</string>
+    <string name="service_is_not_available">Hizmet kullanılamıyor</string>
+    <string name="launch">Çalıştır</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_required">Update required</string>
+    <string name="update_found">Update found</string>
+    <string name="install">Install</string>
+    <string name="downloading_new_version">Downloading new version&#8230;</string>
+    <string name="exit_application">Exit application</string>
+    <string name="remind_me_later">Remind me later</string>
+    <string name="error_occured">Error occurred</string>
+    <string name="update_couldn_t_be_completed">Update couldn\'t be completed.</string>
+    <string name="continue_">Continue</string>
+    <string name="view">View</string>
+    <string name="close">Close</string>
+    <string name="service_is_not_available">Service is not available</string>
+    <string name="launch">Launch</string>
+</resources>
