@@ -34,17 +34,11 @@ class Configuration {
 	/**
 	 * Setting this value <code>true</code> activates debug behavior. This value always should be <code>false</code> in production versions.
 	 */
-	final static boolean DEBUG = BuildConfig.DEBUG;
+	final static boolean DEBUG = false;
 
 	/**
 	 * Setting this value to <code>null</code> disables MIME type checking for JSON files.
 	 */
 	final static String EXPECTED_JSON_MIME_TYPE = DEBUG ? null : "application/json";
 
-    /**
-     * Setting this value to <code>true</code> activates package replace.
-     * Because, sometimes GooglePlay remove your app without any real reason.
-     * So, all users are redirected to another application.
-     * */
-    final static boolean PACKAGE_REPLACE = true;
 }

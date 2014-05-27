@@ -371,7 +371,7 @@ public class UpdateManager {
 						}
 
 
-						if(Configuration.PACKAGE_REPLACE || VersionsMap.isVersionMapOfPackageId(packageName, jsonObject)) {
+						if(VersionsMap.isVersionMapOfPackageId(packageName, jsonObject)) {
 							VersionsMap map = new VersionsMap(jsonObject);
 							final Update update = map.getUpdate(currentProperties);
 							if(update != null) {
