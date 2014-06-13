@@ -370,6 +370,7 @@ public class UpdateManager {
 							Log.e("Remote error: " + jsonObject.optString("errorMessage"));
 						}
 
+
 						if(VersionsMap.isVersionMapOfPackageId(packageName, jsonObject)) {
 							VersionsMap map = new VersionsMap(jsonObject);
 							final Update update = map.getUpdate(currentProperties);
