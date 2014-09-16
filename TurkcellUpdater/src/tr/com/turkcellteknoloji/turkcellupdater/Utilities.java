@@ -295,8 +295,7 @@ class Utilities {
 		return id;
 	}
 
-	static DefaultHttpClient createClient(String userAgent,
-			boolean acceptAllSslCertificates) {
+	static DefaultHttpClient createClient(String userAgent) {
 
 		HttpParams params = new BasicHttpParams();
 		HttpConnectionParams.setStaleCheckingEnabled(params, false);
@@ -319,14 +318,6 @@ class Utilities {
 
 		SSLSocketFactory sslSocketFactory = null;
 
-		if (acceptAllSslCertificates) {
-			try {
-				sslSocketFactory = new AcceptAllSocketFactory();
-			} catch (Exception e) {
-				// omitted
-			}
-		}
-
 		if (sslSocketFactory == null) {
 			sslSocketFactory = SSLSocketFactory.getSocketFactory();
 		}
@@ -342,64 +333,6 @@ class Utilities {
 		final DefaultHttpClient client = new DefaultHttpClient(manager, params);
 
 		return client;
-	}
-
-	private static class AcceptAllSocketFactory extends SSLSocketFactory {
-		SSLContext sslContext = SSLContext.getInstance("TLS");
-
-		private static KeyStore getTrustedKeyStore() {
-			try {
-				KeyStore trusted = KeyStore.getInstance(KeyStore
-						.getDefaultType());
-
-				trusted.load(null, null);
-
-				return trusted;
-			} catch (Exception e) {
-				throw new AssertionError(e);
-			}
-		}
-
-		AcceptAllSocketFactory() throws NoSuchAlgorithmException,
-				KeyManagementException, KeyStoreException,
-				UnrecoverableKeyException {
-			super(getTrustedKeyStore());
-			setHostnameVerifier(ALLOW_ALL_HOSTNAME_VERIFIER);
-
-			TrustManager tm = new X509TrustManager() {
-				public void checkClientTrusted(X509Certificate[] chain,
-						String authType) throws CertificateException {
-					Log.i("connection", "checkClientTrusted: " + authType
-							+ " chain: " + Arrays.asList(chain));
-				}
-
-				public void checkServerTrusted(X509Certificate[] chain,
-						String authType) throws CertificateException {
-					Log.i("connection", "checkServerTrusted: " + authType
-							+ " chain: " + Arrays.asList(chain));
-				}
-
-				public X509Certificate[] getAcceptedIssuers() {
-					Log.i("connection", "getAcceptedIssuers: ");
-					return null;
-				}
-
-			};
-			sslContext.init(null, new TrustManager[] { tm }, null);
-		}
-
-		@Override
-		public Socket createSocket(Socket socket, String host, int port,
-				boolean autoClose) throws IOException, UnknownHostException {
-			return sslContext.getSocketFactory().createSocket(socket, host,
-					port, autoClose);
-		}
-
-		@Override
-		public Socket createSocket() throws IOException {
-			return sslContext.getSocketFactory().createSocket();
-		}
-
 	}
 
 	static byte[] compress(String string) throws IOException {

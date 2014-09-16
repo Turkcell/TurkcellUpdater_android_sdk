@@ -776,8 +776,7 @@ public class UpdaterDialogManager implements UpdateCheckListener,
 
 					}
 				});
-				HttpClient client = Utilities.createClient(
-						"Turkcell Updater/1.0 ", false);
+				HttpClient client = Utilities.createClient("Turkcell Updater/1.0 ");
 				try {
 					request.executeAsync(client);
 				} catch (Exception e) {
