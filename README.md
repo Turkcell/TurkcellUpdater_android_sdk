@@ -22,7 +22,7 @@ This documents describes usage and structure configuration files used by Turkcel
 		{
 			 "descriptions": {
 				 "*": {
-					 "message": "New version available",
+					 "message": "New version available"
 				 }
 			 },
 			 "targetVersionCode": 1,
@@ -42,7 +42,7 @@ This documents describes usage and structure configuration files used by Turkcel
 		{
 			 "descriptions": {
 				 "*": {
-					 "message": "New version available",
+					 "message": "New version available"
 				 }
 			 },
 			 "targetVersionCode": 1,
@@ -61,11 +61,11 @@ This documents describes usage and structure configuration files used by Turkcel
 	"updates": [
 		{
 			"filters": {
-				"appInstallerPackageName": "com.android.vending",
+				"appInstallerPackageName": "com.android.vending"
 			},
 			"descriptions": {
 				"*": {
-					"message": "New version available",
+					"message": "New version available"
 				}
 			},
 			"targetVersionCode": 1,
@@ -73,11 +73,11 @@ This documents describes usage and structure configuration files used by Turkcel
 		},
 		{
 			"filters": {
-				"appInstallerPackageName": "!com.android.vending",
+				"appInstallerPackageName": "!com.android.vending"
 			},
 			 "descriptions": {
 				 "*": {
-					 "message": "New version available",
+					 "message": "New version available"
 				 }
 			 },
 			 "targetVersionCode": 1,
@@ -97,7 +97,7 @@ This documents describes usage and structure configuration files used by Turkcel
 		{
 			 "descriptions": {
 				 "*": {
-					 "message": "New version available",
+					 "message": "New version available"
 				 }
 			 },
 			 "targetVersionCode": "1",
@@ -118,7 +118,7 @@ This documents describes usage and structure configuration files used by Turkcel
 		{
 			 "descriptions": {
 				 "*": {
-					 "message": "New version available",
+					 "message": "New version available"
 				 }
 			 },
 			 "forceExit": true,
@@ -140,7 +140,7 @@ This documents describes usage and structure configuration files used by Turkcel
 			},
 			"descriptions": {
 				 "*": {
-					 "message": "New version available",
+					 "message": "New version available"
 				 }
 			},
 			"targetVersionCode": "5",
@@ -154,7 +154,7 @@ This documents describes usage and structure configuration files used by Turkcel
 
 			 "descriptions": {
 				 "*": {
-					 "message": "Android version earlier than Android 2.2 are not supported.",
+					 "message": "Android version earlier than Android 2.2 are not supported."
 				 }
 			 },
 			 "forceExit": true,
@@ -173,7 +173,7 @@ This documents describes usage and structure configuration files used by Turkcel
 		{
 			"descriptions": {
 				 "*": {
-					 "message": "New version available",
+					 "message": "New version available"
 				 }
 			},
 			"targetPackageName": "com.example.newapp",
