@@ -102,7 +102,7 @@ This documents describes usage and structure configuration files used by Turkcel
 			 },
 			 "targetVersionCode": "1",
 			 "targetGooglePlay": true,
-			 "forceUpdate": true,
+			 "forceUpdate": true
 		}
 	]
 }
@@ -121,7 +121,7 @@ This documents describes usage and structure configuration files used by Turkcel
 					 "message": "New version available"
 				 }
 			 },
-			 "forceExit": true,
+			 "forceExit": true
 		}
 	]
 }
@@ -145,7 +145,7 @@ This documents describes usage and structure configuration files used by Turkcel
 			},
 			"targetVersionCode": "5",
 			"targetGooglePlay": true,
-			"forceUpdate": true,
+			"forceUpdate": true
 		},
 		{
 			"filters": {
@@ -157,7 +157,7 @@ This documents describes usage and structure configuration files used by Turkcel
 					 "message": "Android version earlier than Android 2.2 are not supported."
 				 }
 			 },
-			 "forceExit": true,
+			 "forceExit": true
 		}
 	]
 }
@@ -179,7 +179,7 @@ This documents describes usage and structure configuration files used by Turkcel
 			"targetPackageName": "com.example.newapp",
 			"targetVersionCode": "5",
 			"targetGooglePlay": true,
-			"forceUpdate": true,
+			"forceUpdate": true
 		}
 	]
 }
