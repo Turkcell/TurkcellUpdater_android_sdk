@@ -15,7 +15,7 @@
         android:id="@+id/serverAddressEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="http://update_url.json"
+        android:text="https://dl.dropboxusercontent.com/u/13699149/updater_test.json"
 		android:inputType="textUri"
         />
     <CheckBox

@@ -39,6 +39,6 @@ class Configuration {
 	/**
 	 * Setting this value to <code>null</code> disables MIME type checking for JSON files.
 	 */
-	final static String EXPECTED_JSON_MIME_TYPE = DEBUG ? null : "application/json";
+	final static String EXPECTED_JSON_MIME_TYPE = null; //DEBUG ? null : "application/json";
 
 }
