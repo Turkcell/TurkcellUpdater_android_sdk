@@ -13,13 +13,13 @@ This library provides mechanism for updating Android applications and displaying
 <h2>Gradle</h2>
 Add below dependency to your app's build.gradle file.
 
-<code>
+```sh
 dependencies {
     ...
     compile 'tr.com.turkcellteknoloji.turkcellupdater:turkcellUpdater:1.1.0'
     ...
 }
-
+```
 </code>
 
 <h2>Configuration Guide</h2>
