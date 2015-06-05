@@ -9,6 +9,19 @@ This library provides mechanism for updating Android applications and displaying
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
+
+<h2>Gradle</h2>
+Add below dependency to your app's build.gradle file.
+
+<code>
+dependencies {
+    ...
+    compile 'tr.com.turkcellteknoloji.turkcellupdater:turkcellUpdater:1.1.0'
+    ...
+}
+
+</code>
+
 <h2>Configuration Guide</h2>
 This documents describes usage and structure configuration files used by Turkcell Updater library.
 <h3>Usage</h3>
