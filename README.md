@@ -199,6 +199,30 @@ This documents describes usage and structure configuration files used by Turkcel
 </code>
 </pre>
 
+<h4>Adding "What is new in this version" message </h4>
+<pre>
+<code>
+{  
+   "packageName":"com.example.app1",
+   "messages":[  
+      {  
+         "filters":{  
+            "appVersionCode":"1.1.0.0",
+            "deviceOsName":"Android"
+         },
+         "descriptions":{  
+            "*":{  
+               "title":"What's New in this Version",
+               "message":"We made our app even cooler with some incredible bugfixes."
+            }
+         },
+         "maxDisplayCount":1,
+         "targetWebsiteUrl":"http://mysite.com?q=learn+more"
+      }
+   ]
+}
+</code>
+</pre>
 
 <h3>Reference</h3>
 Different configuration files are stored per application using Turkcell Updater Library.<br>
