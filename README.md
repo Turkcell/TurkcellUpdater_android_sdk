@@ -12,19 +12,19 @@ This library provides mechanism for updating Android applications and displaying
 
 <h2>Gradle</h2>
 Add it in your root build.gradle at the end of repositories:
+<code>
 allprojects {
 	repositories {
 		...
 		maven { url 'https://jitpack.io' }
 	}
 }
-
+</code>
 Add below dependency to your app's build.gradle file.
-
+<code>
 dependencies {
 	        compile 'com.github.Turkcell:TurkcellUpdater_android_sdk:1.2.0'
 }
-
 </code>
 
 <h2>Configuration Guide</h2>
