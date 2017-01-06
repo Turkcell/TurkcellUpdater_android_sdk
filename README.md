@@ -12,6 +12,7 @@ This library provides mechanism for updating Android applications and displaying
 
 <h2>Gradle</h2>
 Add it in your root build.gradle at the end of repositories:
+<pre>
 <code>
 allprojects {
 	repositories {
@@ -20,13 +21,15 @@ allprojects {
 	}
 }
 </code>
+</pre>
 Add below dependency to your app's build.gradle file.
+<pre>
 <code>
 dependencies {
 	        compile 'com.github.Turkcell:TurkcellUpdater_android_sdk:1.2.0'
 }
 </code>
-
+</pre>
 <h2>Configuration Guide</h2>
 This documents describes usage and structure configuration files used by Turkcell Updater library.
 <h3>Usage</h3>
