@@ -13,13 +13,8 @@ This library provides mechanism for updating Android applications and displaying
 <h2>Gradle</h2>
 Add below dependency to your app's build.gradle file.
 
-```sh
-dependencies {
-    ...
-    [![](https://jitpack.io/v/menekseibrahim/TurkcellUpdater_android_sdk.svg)](https://jitpack.io/#menekseibrahim/TurkcellUpdater_android_sdk)
-    ...
-}
-```
+[![](https://jitpack.io/v/menekseibrahim/TurkcellUpdater_android_sdk.svg)](https://jitpack.io/#menekseibrahim/TurkcellUpdater_android_sdk)
+
 </code>
 
 <h2>Configuration Guide</h2>
