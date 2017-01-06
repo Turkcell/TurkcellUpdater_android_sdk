@@ -16,7 +16,7 @@ Add below dependency to your app's build.gradle file.
 ```sh
 dependencies {
     ...
-    compile 'tr.com.turkcellteknoloji.turkcellupdater:turkcellUpdater:1.1.0'
+    [![](https://jitpack.io/v/menekseibrahim/TurkcellUpdater_android_sdk.svg)](https://jitpack.io/#menekseibrahim/TurkcellUpdater_android_sdk)
     ...
 }
 ```
