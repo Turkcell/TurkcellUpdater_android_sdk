@@ -52,28 +52,28 @@ public class SplashActivity extends Activity {
         TurkcellUpdater updater = new TurkcellUpdater(SplashActivity.this, "http://10.0.2.2/hop.json");
         updater.setTurkcellUpdaterCallback(mTurkcellUpdaterCallback);
         updater.setDefaultDialogCallback(mUpdaterUiListener);
-        updater.check(true);
+        updater.check(false);
     }
 
     private TurkcellUpdaterCallback mTurkcellUpdaterCallback = new TurkcellUpdaterCallback() {
         @Override
-        public void onForceUpdateReceive(String message, String warnings, String whatIsNew) {
+        public void onForceUpdateReceive(String message, String warnings, String whatIsNew, String positiveButton, String negativeButton) {
             Log.e("onForceUpdateReceive", message + " " + warnings + " " + whatIsNew);
         }
 
         @Override
-        public void onForceExitReceive(String message, String warnings, String whatIsNew) {
-            Log.e("onForceExitReceive", message + " " + warnings + " " + whatIsNew);
+        public void onForceExitReceive(String message, String warnings, String whatIsNew, String positiveButton, String negativeButton) {
+            Log.e("onForceExitReceive", message + " " + warnings + " " + whatIsNew + " " + positiveButton + " " + negativeButton);
         }
 
         @Override
-        public void onNonForceUpdateReceive(String message, String warnings, String whatIsNew) {
-            Log.e("onNonForceUpdateReceive", message + " " + warnings + " " + whatIsNew);
+        public void onNonForceUpdateReceive(String message, String warnings, String whatIsNew, String positiveButton, String negativeButton) {
+            Log.e("onNonForceUpdateReceive", message + " " + warnings + " " + whatIsNew + " " + positiveButton + " " + negativeButton);
         }
 
         @Override
-        public void onMessageReceive(String title, String message, String imageUrl, Uri redirectionUri) {
-            Log.e("onMessageReceive", title + " " + message + " " + imageUrl + " " + redirectionUri.toString());
+        public void onMessageReceive(String title, String message, String positiveButton, String negativeButton, String imageUrl, Uri redirectionUri) {
+            Log.e("onMessageReceive", title + " " + message + " " + imageUrl + " " + redirectionUri.toString() + " " + positiveButton + " " + negativeButton);
         }
 
         @Override

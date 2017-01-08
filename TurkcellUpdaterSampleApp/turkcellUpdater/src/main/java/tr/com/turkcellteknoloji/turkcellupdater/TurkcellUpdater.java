@@ -28,7 +28,7 @@ public final class TurkcellUpdater {
          * @param warnings
          * @param whatIsNew
          */
-        void onForceUpdateReceive(String message, String warnings, String whatIsNew);
+        void onForceUpdateReceive(String message, String warnings, String whatIsNew, String positiveButton, String negativeButton);
 
         /**
          * Hizmet kullanilamadigi durumda tetiklenir.
@@ -37,7 +37,7 @@ public final class TurkcellUpdater {
          * @param warnings
          * @param whatIsNew
          */
-        void onForceExitReceive(String message, String warnings, String whatIsNew);
+        void onForceExitReceive(String message, String warnings, String whatIsNew, String positiveButton, String negativeButton);
 
         /**
          * Zorunlu olmayan guncelleme durumunda tetiklenir.
@@ -46,7 +46,7 @@ public final class TurkcellUpdater {
          * @param warnings
          * @param whatIsNew
          */
-        void onNonForceUpdateReceive(String message, String warnings, String whatIsNew);
+        void onNonForceUpdateReceive(String message, String warnings, String whatIsNew, String positiveButton, String negativeButton);
 
         /**
          * Kullaniciya gosterilmesi gereken mesaj geldiginde tetiklenir.
@@ -56,7 +56,7 @@ public final class TurkcellUpdater {
          * @param imageUrl
          * @param redirectionUri
          */
-        void onMessageReceive(String title, String message, String imageUrl, Uri redirectionUri);
+        void onMessageReceive(String title, String message, String positiveButton, String negativeButton, String imageUrl, Uri redirectionUri);
 
         /**
          * Hicbir guncelleme ve mesaj olmadigi durumda tetiklenir.
@@ -140,22 +140,26 @@ public final class TurkcellUpdater {
             String warnings = null;
             String message = null;
             String whatIsNew = null;
+            String positiveButton = null;
+            String negativeButton = null;
             if (description != null) {
                 warnings = update.description.get(UpdateDescription.KEY_WARNINGS);
                 message = update.description.get(UpdateDescription.KEY_MESSAGE);
                 whatIsNew = update.description.get(UpdateDescription.KEY_WHAT_IS_NEW);
+                positiveButton = update.description.get(UpdateDescription.KEY_POSITIVE_BUTTON);
+                negativeButton = update.description.get(UpdateDescription.KEY_NEGATIVE_BUTTON);
             }
             if (update.forceExit) {
                 if (mTurkcellUpdaterCallback != null) {
-                    mTurkcellUpdaterCallback.onForceExitReceive(message, warnings, whatIsNew);
+                    mTurkcellUpdaterCallback.onForceExitReceive(message, warnings, whatIsNew, positiveButton, negativeButton);
                 }
             } else if (update.forceUpdate) {
                 if (mTurkcellUpdaterCallback != null) {
-                    mTurkcellUpdaterCallback.onForceUpdateReceive(message, warnings, whatIsNew);
+                    mTurkcellUpdaterCallback.onForceUpdateReceive(message, warnings, whatIsNew, positiveButton, negativeButton);
                 }
             } else {
                 if (mTurkcellUpdaterCallback != null) {
-                    mTurkcellUpdaterCallback.onNonForceUpdateReceive(message, warnings, whatIsNew);
+                    mTurkcellUpdaterCallback.onNonForceUpdateReceive(message, warnings, whatIsNew, positiveButton, negativeButton);
                 }
             }
         }
@@ -165,12 +169,16 @@ public final class TurkcellUpdater {
             MessageDescription description = message.description;
             String title = null;
             String messageText = null;
+            String positiveButton = null;
+            String negativeButton = null;
             String imageUrl = null;
             Uri redirectionUri = null;
             if (description != null) {
                 title = description.get(MessageDescription.KEY_TITLE);
                 messageText = description.get(MessageDescription.KEY_MESSAGE);
                 imageUrl = description.get(MessageDescription.KEY_IMAGE_URL);
+                positiveButton = description.get(MessageDescription.KEY_POSITIVE_BUTTON);
+                negativeButton = description.get(MessageDescription.KEY_NEGATIVE_BUTTON);
             }
             if (message.targetGooglePlay && message.targetPackageName != null) {
                 String packageName = message.targetPackageName;
@@ -179,7 +187,7 @@ public final class TurkcellUpdater {
                 redirectionUri = Uri.parse(message.targetWebsiteUrl.toExternalForm());
             }
             if (mTurkcellUpdaterCallback != null) {
-                mTurkcellUpdaterCallback.onMessageReceive(title, messageText, imageUrl, redirectionUri);
+                mTurkcellUpdaterCallback.onMessageReceive(title, messageText, positiveButton, negativeButton, imageUrl, redirectionUri);
             }
         }
 
