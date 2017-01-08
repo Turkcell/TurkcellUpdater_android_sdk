@@ -50,7 +50,7 @@ import tr.com.turkcellteknoloji.turkcellupdater.UpdateManager.UpdateListener;
  * Provides a mechanism for checking updates and displaying notification dialogs
  * to user when needed.<br>
  * Usage example:<br>
- *
+ * <p>
  * <pre>
  * <code>
  * package com.example.app;
@@ -94,7 +94,6 @@ import tr.com.turkcellteknoloji.turkcellupdater.UpdateManager.UpdateListener;
  *
  * @author Ugur Ozmen
  * @see #startUpdateCheck(Activity, UpdaterUiListener)
- *
  */
 public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener {
 
@@ -135,10 +134,9 @@ public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener
          * if this method returns <false> message will be automatically
          * displayed to user immediately.<br>
          *
-         * @param message
-         *            Message that will be displayed to user.
+         * @param message Message that will be displayed to user.
          * @return <code>true</code> if message is handled by application it
-         *         self.
+         * self.
          */
         boolean onDisplayMessage(Message message);
     }
@@ -155,16 +153,15 @@ public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener
 
     /**
      * @return <code>true</code> if current properties should post to server for
-     *         server side processing.
+     * server side processing.
      */
     public boolean doesPostProperties() {
         return postProperties;
     }
 
     /**
-     *
      * @param postProperties <code>true</code> if current properties should
-     * post to server for server side processing.
+     *                       post to server for server side processing.
      */
     public void setPostProperties(boolean postProperties) {
         this.postProperties = postProperties;
@@ -173,8 +170,7 @@ public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener
     /**
      * Creates a new instance.
      *
-     * @param updateServerUrl
-     *            Location of update instructions.
+     * @param updateServerUrl Location of update instructions.
      */
     public UpdaterDialogManager(String updateServerUrl) {
         super();
@@ -233,10 +229,8 @@ public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener
     /**
      * Starts update check. Default properties are will be used.
      *
-     * @param activity
-     *            Parent activity.
-     * @param listener
-     *            Callback listener.
+     * @param activity Parent activity.
+     * @param listener Callback listener.
      */
     public void startUpdateCheck(Activity activity, UpdaterUiListener listener) {
         startUpdateCheck(null, activity, listener);
@@ -245,12 +239,9 @@ public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener
     /**
      * Starts update check.
      *
-     * @param properties
-     *            Current properties.
-     * @param activity
-     *            Parent activity.
-     * @param listener
-     *            Callback listener.
+     * @param properties Current properties.
+     * @param activity   Parent activity.
+     * @param listener   Callback listener.
      */
     public void startUpdateCheck(Properties properties, Activity activity, UpdaterUiListener listener) {
         setActivity(activity);
@@ -404,10 +395,14 @@ public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener
         String warnings = null;
         String message = null;
         String whatIsNew = null;
+        String positiveButton = null;
+        String negativeButton = null;
         if (update.description != null) {
             warnings = update.description.get(UpdateDescription.KEY_WARNINGS);
             message = update.description.get(UpdateDescription.KEY_MESSAGE);
             whatIsNew = update.description.get(UpdateDescription.KEY_WHAT_IS_NEW);
+            positiveButton = update.description.get(UpdateDescription.KEY_POSITIVE_BUTTON);
+            negativeButton = update.description.get(UpdateDescription.KEY_NEGATIVE_BUTTON);
         }
         if (Utilities.isNullOrEmpty(message)) {
             messageTextView.setVisibility(View.GONE);
@@ -525,13 +520,10 @@ public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener
     /**
      * Creates a dialog for given message.
      *
-     * @param activity
-     *            Parent activity.
-     * @param message
-     *            Message contents
-     * @param dismissListener
-     *            Listener that will be called when dialog is closed or
-     *            cancelled.
+     * @param activity        Parent activity.
+     * @param message         Message contents
+     * @param dismissListener Listener that will be called when dialog is closed or
+     *                        cancelled.
      * @return Created dialog.
      */
     public static Dialog createMessageDialog(Activity activity, Message message, OnDismissListener dismissListener) {
@@ -569,9 +561,17 @@ public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener
             viewButtonTargetGooglePlay = false;
         }
         if (!viewButtonEnabled) {
-            builder.setNeutralButton(R.string.close, null);
+            if (message.description != null && message.description.get(MessageDescription.KEY_POSITIVE_BUTTON) != null) {
+                builder.setNeutralButton(message.description.get(MessageDescription.KEY_POSITIVE_BUTTON), null);
+            } else {
+                builder.setNeutralButton(R.string.close, null);
+            }
         } else {
-            builder.setNegativeButton(R.string.close, null);
+            if (message.description != null && message.description.get(MessageDescription.KEY_NEGATIVE_BUTTON) != null) {
+                builder.setNegativeButton(message.description.get(MessageDescription.KEY_NEGATIVE_BUTTON), null);
+            } else {
+                builder.setNegativeButton(R.string.close, null);
+            }
             OnClickListener onClickListener = new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -582,7 +582,11 @@ public class UpdaterDialogManager implements UpdateCheckListener, UpdateListener
                     }
                 }
             };
-            builder.setPositiveButton(R.string.view, onClickListener);
+            if (message.description != null && message.description.get(MessageDescription.KEY_POSITIVE_BUTTON) != null) {
+                builder.setPositiveButton(message.description.get(MessageDescription.KEY_POSITIVE_BUTTON), onClickListener);
+            } else {
+                builder.setPositiveButton(R.string.view, onClickListener);
+            }
         }
     }
 
