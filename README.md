@@ -26,7 +26,7 @@ Add below dependency to your app's build.gradle file.
 <pre>
 <code>
 dependencies {
-	compile 'com.github.Turkcell:TurkcellUpdater_android_sdk:1.2.1'
+	compile 'com.github.Turkcell:TurkcellUpdater_android_sdk:1.2.2'
 }
 </code>
 </pre>
@@ -42,8 +42,15 @@ This documents describes usage and structure configuration files used by Turkcel
 	"updates": [
 		{
 			 "descriptions": {
+				 "tr": {
+					 "message": "Yeni versiyon yayınlanmıştır",
+					 "positive_button": "Güncelle",
+					 "negative_button": "İptal"
+				 },
 				 "*": {
-					 "message": "New version available"
+					 "message": "New version available",
+					 "positive_button": "Update",
+					 "negative_button": "Cancel"
 				 }
 			 },
 			 "targetVersionCode": 1,
@@ -62,8 +69,15 @@ This documents describes usage and structure configuration files used by Turkcel
 	"updates": [
 		{
 			 "descriptions": {
+				 "tr": {
+					 "message": "Yeni versiyon yayınlanmıştır",
+					 "positive_button": "Güncelle",
+					 "negative_button": "İptal"
+				 },
 				 "*": {
-					 "message": "New version available"
+					 "message": "New version available",
+					 "positive_button": "Update",
+					 "negative_button": "Cancel"
 				 }
 			 },
 			 "targetVersionCode": 1,
@@ -85,8 +99,15 @@ This documents describes usage and structure configuration files used by Turkcel
 				"appInstallerPackageName": "com.android.vending"
 			},
 			"descriptions": {
+				 "tr": {
+					 "message": "Yeni versiyon yayınlanmıştır",
+					 "positive_button": "Güncelle",
+					 "negative_button": "İptal"
+				 },
 				"*": {
-					"message": "New version available"
+					"message": "New version available",
+					"positive_button": "Update",
+					"negative_button": "Cancel"
 				}
 			},
 			"targetVersionCode": 1,
@@ -97,8 +118,15 @@ This documents describes usage and structure configuration files used by Turkcel
 				"appInstallerPackageName": "!com.android.vending"
 			},
 			 "descriptions": {
+				 "tr": {
+					 "message": "Yeni versiyon yayınlanmıştır",
+					 "positive_button": "Güncelle",
+					 "negative_button": "İptal"
+				 },
 				 "*": {
-					 "message": "New version available"
+					 "message": "New version available",
+					 "positive_button": "Update",
+					 "negative_button": "Cancel"
 				 }
 			 },
 			 "targetVersionCode": 1,
@@ -117,8 +145,15 @@ This documents describes usage and structure configuration files used by Turkcel
 	"updates": [
 		{
 			 "descriptions": {
+				 "tr": {
+					 "message": "Yeni versiyon yayınlanmıştır",
+					 "positive_button": "Güncelle",
+					 "negative_button": "Çıkış"
+				 },
 				 "*": {
-					 "message": "New version available"
+					 "message": "New version available",
+					 "positive_button": "Update",
+					 "negative_button": "Exit"
 				 }
 			 },
 			 "targetVersionCode": "1",
@@ -138,8 +173,13 @@ This documents describes usage and structure configuration files used by Turkcel
 	"updates": [
 		{
 			 "descriptions": {
+				 "tr": {
+					 "message": "Hizmet kullanılamıyor",
+					 "positive_button": "Çıkış"
+				 },
 				 "*": {
-					 "message": "New version available"
+					 "message": "Service is unavailable",
+					 "positive_button": "Exit"
 				 }
 			 },
 			 "forceExit": true
@@ -160,8 +200,15 @@ This documents describes usage and structure configuration files used by Turkcel
 				"deviceApiLevel": "&gt;=8"
 			},
 			"descriptions": {
+				 "tr": {
+					 "message": "Yeni versiyon yayınlanmıştır",
+					 "positive_button": "Güncelle",
+					 "negative_button": "Çıkış"
+				 },
 				 "*": {
-					 "message": "New version available"
+					 "message": "New version available",
+					 "positive_button": "Update",
+					 "negative_button": "Exit"
 				 }
 			},
 			"targetVersionCode": "5",
@@ -174,8 +221,13 @@ This documents describes usage and structure configuration files used by Turkcel
 			},
 
 			 "descriptions": {
+				 "tr": {
+					 "message": "Android 2.2 ve üzeri versiyonlar desteklenmektedir.",
+					 "positive_button": "Çıkış"
+				 },
 				 "*": {
-					 "message": "Android version earlier than Android 2.2 are not supported."
+					 "message": "Android version earlier than Android 2.2 are not supported.",
+					 "positive_button": "Exit"
 				 }
 			 },
 			 "forceExit": true
@@ -194,7 +246,8 @@ This documents describes usage and structure configuration files used by Turkcel
 		{
 			"descriptions": {
 				 "*": {
-					 "message": "New version available"
+					 "message": "New version available",
+					 "positive_button": "Update"
 				 }
 			},
 			"targetPackageName": "com.example.newapp",
@@ -219,9 +272,15 @@ This documents describes usage and structure configuration files used by Turkcel
             "deviceOsName":"Android"
          },
          "descriptions":{  
+            "tr":{  
+               "title":"Bu Versiyonda Neler Yeni",
+               "message":"Bazi hatalar duzeltildi ve iyilestirmeler yapildi.",
+	       "positive_button": "Tamam"
+            },
             "*":{  
                "title":"What's New in this Version",
-               "message":"We made our app even cooler with some incredible bugfixes."
+               "message":"We made our app even cooler with some incredible bugfixes.",
+	       "positive_button": "Ok"
             }
          },
          "maxDisplayCount":1,
@@ -299,10 +358,17 @@ Type: Object
 	"updates": [
 		{
 			 "descriptions": {
+				 "tr": {
+					 "message": "Yeni versiyon yayinlandi",
+					 "whatIsNew": "Bazi hatalar duzeltildi",
+					 "warnings": "Yeni versiyon ek izinler gerektiriyor",
+					 "positive_button": "Tamam"
+				 },
 				 "*": {
 					 "message": "New version available",
 					 "whatIsNew": "Minor bug fixes",
-					 "warnings": "New version requires additional privileges"
+					 "warnings": "New version requires additional privileges",
+					 "positive_button": "Ok"
 				 }
 			 },
 			 "targetVersionCode": 10,
@@ -313,10 +379,19 @@ Type: Object
 	"messages": [
 		{
 			"descriptions": {
+				"tr": {
+					"title": "Teklif",
+					"message": "Yeni uygulama mevcut!",
+					"imageUrl": "http://example.com/app2-icon.png",
+					"positive_button": "Yukle",
+					"negative_button": "Daha Spnra"
+				},
 				"*": {
 					"title": "Offer",
 					"message": "New application is available!",
-					"imageUrl": "http://example.com/app2-icon.png"
+					"imageUrl": "http://example.com/app2-icon.png",
+					"positive_button": "Install",
+					"negative_button": "Later"
 				}
 			},
 			"targetPackageName": "com.example.app2",
@@ -1063,6 +1138,30 @@ Fully qualified URL of image file that is displayed in message dialog. It should
 </td>
 <td>No</td>
 <td>2</td>
+</tr>
+
+<tr>
+<td>positive_button</td>
+<td>String</td>
+<td>null</td>
+<td>Android</td>
+<td>
+Text that will be displayed at positive button of message dialog.
+</td>
+<td>Yes</td>
+<td>3</td>
+</tr>
+
+<tr>
+<td>negative_button</td>
+<td>String</td>
+<td>null</td>
+<td>Android</td>
+<td>
+Text that will be displayed at negative button of message dialog.
+</td>
+<td>No</td>
+<td>3</td>
 </tr>
 
 </table>
