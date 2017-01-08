@@ -1067,6 +1067,30 @@ Warning text about the update. Any important issues that user should know before
 <td>1</td>
 </tr>
 
+<tr>
+<td>positive_button</td>
+<td>String</td>
+<td>null</td>
+<td>Android</td>
+<td>
+Text that will be displayed at positive button of message dialog.
+</td>
+<td>Yes</td>
+<td>3</td>
+</tr>
+
+<tr>
+<td>negative_button</td>
+<td>String</td>
+<td>null</td>
+<td>Android</td>
+<td>
+Text that will be displayed at negative button of message dialog.
+</td>
+<td>No</td>
+<td>3</td>
+</tr>
+
 </table>
 
 <h5>Example:</h5>
@@ -1075,7 +1099,9 @@ Warning text about the update. Any important issues that user should know before
 {
 	"message": "New version available",
 	"whatIsNew": "Minor bug fixes",
-	"warnings": "New version requires additional privileges"
+	"warnings": "New version requires additional privileges",
+	"positive_button": "Install",
+	"negative_button": "Later"
 }
 </code>
 </pre>
@@ -1172,7 +1198,9 @@ Text that will be displayed at negative button of message dialog.
 {
 	"title": "Offer",
 	"message": "New application is avaliable!",
-	"imageUrl": "http://example.com/app2-icon.png"
+	"imageUrl": "http://example.com/app2-icon.png",
+	"positive_button": "Install",
+	"negative_button": "Later"
 }
 </code>
 </pre>
