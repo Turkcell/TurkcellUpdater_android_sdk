@@ -15,10 +15,13 @@
  *******************************************************************************/
 package tr.com.turkcellteknoloji.turkcellupdater;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -27,17 +30,20 @@ class UpdateEntry extends FilteredEntry {
 
     final List<UpdateDescription> updateDescriptions;
 
+    final int id;
+
     final int targetVersionCode;
     final String targetPackageName;
 
     final URL targetPackageUrl;
     final URL targetWebsiteUrl;
     final boolean targetGooglePlay;
-
+    final int displayPeriodInHours;
+    final int maxDisplayCount;
     final boolean forceUpdate;
     final boolean forceExit;
 
-    UpdateEntry(List<Filter> filters, List<UpdateDescription> updateDescriptions, int targetVersionCode, String targetPackageName, URL targetPackageUrl, URL targetWebsiteUrl, boolean targetGooglePlay, boolean forceUpdate, boolean forceExit) throws UpdaterException {
+    UpdateEntry(List<Filter> filters, int id, List<UpdateDescription> updateDescriptions, int displayPeriodInHours, int maxDisplayCount, int targetVersionCode, String targetPackageName, URL targetPackageUrl, URL targetWebsiteUrl, boolean targetGooglePlay, boolean forceUpdate, boolean forceExit) throws UpdaterException {
         super(filters);
         this.updateDescriptions = updateDescriptions;
         this.targetVersionCode = targetVersionCode;
@@ -47,6 +53,9 @@ class UpdateEntry extends FilteredEntry {
         this.targetGooglePlay = targetGooglePlay;
         this.forceUpdate = forceUpdate;
         this.forceExit = forceExit;
+        this.displayPeriodInHours = displayPeriodInHours;
+        this.maxDisplayCount = maxDisplayCount;
+        this.id = id == 0 ? generateId() : id;
         validate();
     }
 
@@ -60,7 +69,21 @@ class UpdateEntry extends FilteredEntry {
         this.targetWebsiteUrl = getUrl(jsonObject, "targetWebsiteUrl");
         this.targetPackageName = Utilities.removeWhiteSpaces(jsonObject.optString("targetPackageName"));
         this.targetGooglePlay = jsonObject.optBoolean("targetGooglePlay");
+        this.displayPeriodInHours = jsonObject.optInt("displayPeriodInHours", 0);
+        this.maxDisplayCount = jsonObject.optInt("maxDisplayCount", Integer.MAX_VALUE);
+        int i = jsonObject.optInt("id", 0);
+        this.id = i == 0 ? generateId() : i;
         validate();
+    }
+
+    private int generateId() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (targetGooglePlay ? 1231 : 1237);
+        result = prime * result + ((targetPackageName == null) ? 0 : targetPackageName.hashCode());
+        result = prime * result + ((targetWebsiteUrl == null) ? 0 : targetWebsiteUrl.hashCode());
+        result = prime * result + ((updateDescriptions == null) ? 0 : updateDescriptions.hashCode());
+        return result;
     }
 
     private static URL getUrl(JSONObject jsonObject, String key) throws UpdaterException {
@@ -98,7 +121,8 @@ class UpdateEntry extends FilteredEntry {
         return result;
     }
 
-    Update getUpdate(Properties properties) throws UpdaterException {
+    Update getUpdate(Properties properties, UpdateDisplayRecords records) throws UpdaterException {
+        Date now = new Date();
         String languageCode = null;
         if (properties != null) {
             final String s = properties.getValue(Properties.KEY_DEVICE_LANGUAGE);
@@ -113,7 +137,25 @@ class UpdateEntry extends FilteredEntry {
         if (Utilities.isNullOrEmpty(packageName)) {
             throw new UpdaterException("'packageName' property should not be null or empty.");
         }
+        if (maxDisplayCount < Integer.MAX_VALUE) {
+            final int count = records.getUpdateDisplayCount(id);
+            if (count >= maxDisplayCount) {
+                return null;
+            }
+        }
+        // check if it is displayed earlier than specified period
+        if (displayPeriodInHours > 0) {
+            final Date updateLastDisplayDate = records.getUpdateLastDisplayDate(id);
+            // check if message displayed before
+            if (updateLastDisplayDate != null) {
+                final Date date = Utilities.addHours(now, -displayPeriodInHours);
+                if (updateLastDisplayDate.after(date)) {
+                    return null;
+                }
+            }
+        }
         final UpdateDescription updateDescription = LocalizedStringMap.select(updateDescriptions, languageCode);
+        records.onUpdateDisplayed(id, now);
         return new Update(updateDescription, targetPackageUrl, targetWebsiteUrl, targetGooglePlay, targetVersionCode, packageName, forceUpdate, forceExit);
     }
 
@@ -129,11 +171,30 @@ class UpdateEntry extends FilteredEntry {
         }
     }
 
-    boolean shouldDisplay(Properties properties) {
+    boolean shouldDisplay(Properties properties, UpdateDisplayRecords records, Context context) {
         if (isMatches(properties)) {
             final Integer currentVersionCode = Utilities.tryParseInteger(properties.getValue(Properties.KEY_APP_VERSION_CODE));
             if (currentVersionCode != null && targetVersionCode != currentVersionCode.intValue()) {
                 return true;
+            }
+            // check if it is displayed more than specified count
+            if (maxDisplayCount < Integer.MAX_VALUE) {
+                final int count = records.getUpdateDisplayCount(id);
+                if (count >= maxDisplayCount) {
+                    return false;
+                }
+            }
+            // check if it is displayed earlier than specified period
+            if (displayPeriodInHours > 0) {
+                final Date updateLastDisplayDate = records.getUpdateLastDisplayDate(id);
+                // check if update displayed before
+                if (updateLastDisplayDate != null) {
+                    Date now = new Date();
+                    final Date date = Utilities.addHours(now, -displayPeriodInHours);
+                    if (updateLastDisplayDate.after(date)) {
+                        return false;
+                    }
+                }
             }
             final String currentPackageName = properties.getValue(Properties.KEY_APP_PACKAGE_NAME);
             if (!Utilities.isNullOrEmpty(currentPackageName) && !Utilities.isNullOrEmpty(targetPackageName)) {
