@@ -137,20 +137,22 @@ class UpdateEntry extends FilteredEntry {
         if (Utilities.isNullOrEmpty(packageName)) {
             throw new UpdaterException("'packageName' property should not be null or empty.");
         }
-        if (maxDisplayCount < Integer.MAX_VALUE) {
-            final int count = records.getUpdateDisplayCount(id);
-            if (count >= maxDisplayCount) {
-                return null;
-            }
-        }
-        // check if it is displayed earlier than specified period
-        if (displayPeriodInHours > 0) {
-            final Date updateLastDisplayDate = records.getUpdateLastDisplayDate(id);
-            // check if message displayed before
-            if (updateLastDisplayDate != null) {
-                final Date date = Utilities.addHours(now, -displayPeriodInHours);
-                if (updateLastDisplayDate.after(date)) {
+        if (!forceUpdate && !forceExit) {
+            if (maxDisplayCount < Integer.MAX_VALUE) {
+                final int count = records.getUpdateDisplayCount(id);
+                if (count >= maxDisplayCount) {
                     return null;
+                }
+            }
+            // check if it is displayed earlier than specified period
+            if (displayPeriodInHours > 0) {
+                final Date updateLastDisplayDate = records.getUpdateLastDisplayDate(id);
+                // check if message displayed before
+                if (updateLastDisplayDate != null) {
+                    final Date date = Utilities.addHours(now, -displayPeriodInHours);
+                    if (updateLastDisplayDate.after(date)) {
+                        return null;
+                    }
                 }
             }
         }
@@ -174,31 +176,32 @@ class UpdateEntry extends FilteredEntry {
     boolean shouldDisplay(Properties properties, UpdateDisplayRecords records, Context context) {
         if (isMatches(properties)) {
             final Integer currentVersionCode = Utilities.tryParseInteger(properties.getValue(Properties.KEY_APP_VERSION_CODE));
-            if (currentVersionCode != null && targetVersionCode != currentVersionCode.intValue()) {
-                return true;
-            }
-            // check if it is displayed more than specified count
-            if (maxDisplayCount < Integer.MAX_VALUE) {
-                final int count = records.getUpdateDisplayCount(id);
-                if (count >= maxDisplayCount) {
-                    return false;
-                }
-            }
-            // check if it is displayed earlier than specified period
-            if (displayPeriodInHours > 0) {
-                final Date updateLastDisplayDate = records.getUpdateLastDisplayDate(id);
-                // check if update displayed before
-                if (updateLastDisplayDate != null) {
-                    Date now = new Date();
-                    final Date date = Utilities.addHours(now, -displayPeriodInHours);
-                    if (updateLastDisplayDate.after(date)) {
-                        return false;
+            if (currentVersionCode != null && targetVersionCode > currentVersionCode.intValue()) {
+                if (forceUpdate || forceExit) {
+                    return true;
+                } else {
+                    boolean rtn = true;
+                    // check if it is displayed more than specified count
+                    if (maxDisplayCount < Integer.MAX_VALUE) {
+                        final int count = records.getUpdateDisplayCount(id);
+                        if (count >= maxDisplayCount) {
+                            rtn = false;
+                        }
                     }
+                    // check if it is displayed earlier than specified period
+                    if (displayPeriodInHours > 0) {
+                        final Date updateLastDisplayDate = records.getUpdateLastDisplayDate(id);
+                        // check if update displayed before
+                        if (updateLastDisplayDate != null) {
+                            Date now = new Date();
+                            final Date date = Utilities.addHours(now, -displayPeriodInHours);
+                            if (updateLastDisplayDate.after(date)) {
+                                rtn = false;
+                            }
+                        }
+                    }
+                    return rtn;
                 }
-            }
-            final String currentPackageName = properties.getValue(Properties.KEY_APP_PACKAGE_NAME);
-            if (!Utilities.isNullOrEmpty(currentPackageName) && !Utilities.isNullOrEmpty(targetPackageName)) {
-                return !currentPackageName.equals(targetPackageName);
             }
         }
         return false;
